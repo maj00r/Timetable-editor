@@ -111,7 +111,7 @@ namespace RJ_Editor
                 saveFileDialog.ShowDialog();
                 if (saveFileDialog.FileName != "")
                 {
-                    Logic_Parser.write(saveFileDialog.FileName);
+                    WriterToFile.write(saveFileDialog.FileName);
                 }
             
         }
@@ -123,7 +123,7 @@ namespace RJ_Editor
         private void zapiszToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (filePath != "")
-                Logic_Parser.write(filePath);
+                WriterToFile.write(filePath);
             else
                 zapiszJakoToolStripMenuItem_Click(sender, e);
         }
