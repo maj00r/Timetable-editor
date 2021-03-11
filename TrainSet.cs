@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace RJ_Editor
 {
-    class TrainSet
-    {
-    }
+	class TrainSet
+	{
+		// This class will be used for driving time calculation
+	}
 }

@@ -18,21 +18,21 @@ namespace RJ_Editor
 
 		private static string fileContent = "";
 		internal static List<Train> Trains { get => trains; set => trains = value; }
-        internal static Timetable Timetable { get => timetable; set => timetable = value; }
+		internal static Timetable Timetable { get => timetable; set => timetable = value; }
 
 		public static void FindPreviousInCycle()
-        {
-			foreach(Train train in Trains)
-            {
+		{
+			foreach (Train train in Trains)
+			{
 				if (train.PreviousInCycle.HasValue)
-                {
+				{
 					if (!(Trains.Any(item => item.TrainNumber == train.PreviousInCycle.Value)))
-						throw new ArgumentNullException("PreviousInCycle","Train " + train.TrainNumber + " has reference to " + train.PreviousInCycle + " which is missing in timetable");
+						throw new ArgumentNullException("PreviousInCycle", "Train " + train.TrainNumber + " has reference to " + train.PreviousInCycle + " which is missing in timetable");
 
 				}
-            }
-        }
-        private static int CompareTimeSpans(Train x, Train y)
+			}
+		}
+		private static int CompareTimeSpans(Train x, Train y)
 		{
 			if (x.ThisArrival.HasValue && x.ThisDeparture.HasValue)
 				throw new InvalidOperationException("train" + x.TrainNumber + " have arrival and departure values empty");
@@ -54,11 +54,11 @@ namespace RJ_Editor
 			else
 			{
 				if (y.ThisArrival.HasValue)
-                {
+				{
 					return x.ThisDeparture.Value.CompareTo(y.ThisArrival.Value);
 				}
 				else
-                {
+				{
 					return 0;
 
 
@@ -66,16 +66,16 @@ namespace RJ_Editor
 			}
 		}
 		public static void SortByTime()
-        {
-		
-			foreach(Train train in Trains)
-            {
+		{
+
+			foreach (Train train in Trains)
+			{
 				if (train.ThisArrival.HasValue == false)
-                {
+				{
 					train.ThisArrival = train.ThisDeparture.Value;
 					train.ThisArrivalWasOvervritten = true;
 				}
-            }
+			}
 			Trains.Sort(CompareTimeSpans);
 			foreach (Train train in Trains)
 			{
@@ -92,7 +92,7 @@ namespace RJ_Editor
 		}
 		private static void OpenFile(string filePath)
 		{
-			
+
 			Encoding encoding = Encoding.Default;
 			using (FileStream fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read))
 			using (StreamReader reader = new StreamReader(fileStream, Encoding.Default))
@@ -105,7 +105,7 @@ namespace RJ_Editor
 			byte[] utf8Bytes = Encoding.Convert(encoding, Encoding.UTF8, encBytes);
 			fileContent = Encoding.UTF8.GetString(utf8Bytes);
 
-			
+
 		}
 		private static TimeSpan? parseTime(string s)
 		{
@@ -125,28 +125,28 @@ namespace RJ_Editor
 			else
 				return false;
 		}
-		
+
 		private static string parseString(string s)
 		{
 			if (s == "none")
-				 return null;
+				return null;
 			return s.Replace('_', ' ');
 		}
 		private static List<Train> parseTrains()
 		{
 			trains.Clear();
 			Regex regex = new Regex(@"(\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+) (\S+)");
-			
+
 			MatchCollection trainsInput = regex.Matches(fileContent);
 
 			int trainsCounts = trainsInput.Count;
-		   
+
 			foreach (Match match in trainsInput)
 			{
 				Train train = new Train();
 				{
 					train.ExitTracks = parseString(match.Groups[1].Value);
-					
+
 					train.FromPostToWaypoint = parseBool(match.Groups[2].Value);
 					train.ExitDays = parseString(match.Groups[3].Value);
 
@@ -266,7 +266,7 @@ namespace RJ_Editor
 					catch (Exception)
 					{
 						train.ColorExtract = 16717567;  // pink 
-						//throw new FormatException(match.Groups[29].Value + " is not a valid color as decimal");
+														//throw new FormatException(match.Groups[29].Value + " is not a valid color as decimal");
 					}
 					Regex BIGsmall = new Regex(@"([A-Z]+)([a-z]+)");
 					Match BIGsamllMatch = BIGsmall.Match(match.Groups[30].Value);
@@ -276,15 +276,15 @@ namespace RJ_Editor
 					train.PreviousDeparture = parseTime(match.Groups[31].Value);
 					train.ThisArrival = parseTime(match.Groups[32].Value);
 					if (!train.ThisDeparture.HasValue && !train.ThisArrival.HasValue)
-                    {
+					{
 						throw new ArgumentNullException("Train " + train.TrainNumber + " arrival and departure times cannot be empty");
-                    }
+					}
 					train.StationTrackNumber = parseString(match.Groups[33].Value);
 					train.NextArrival = parseTime(match.Groups[34].Value);
 					if (!(train.PreviousDeparture.HasValue == train.ThisArrival.HasValue))
-                    {
+					{
 						throw new ArgumentNullException("Train " + train.TrainNumber + " must have both previous departure and arrival fields empty or valid");
-                    }
+					}
 					if (!(train.NextArrival.HasValue == train.ThisDeparture.HasValue))
 					{
 						throw new ArgumentNullException("Train " + train.TrainNumber + " must have both previous departure and arrival fields empty or valid");
@@ -318,19 +318,19 @@ namespace RJ_Editor
 						train.TwrProbability = 0;
 					}
 					train.IsSWDRQuality = parseBool(match.Groups[47].Value);
-					
+
 					try
 					{
 						NumberFormatInfo provider = new NumberFormatInfo();
 						provider.NumberDecimalSeparator = ".";
 						train.OrderedStop = TimeSpan.FromMinutes(Convert.ToDouble(match.Groups[48].Value.Replace(',', '.'), provider));
 					}
-					catch(FormatException)
+					catch (FormatException)
 					{
 						train.OrderedStop = null;
 					}
 					train.StopTypeSWDR = parseString(match.Groups[49].Value);
-					
+
 				}
 
 				trains.Add(train);
@@ -348,53 +348,53 @@ namespace RJ_Editor
 			instance = new Timetable(m.Groups[2].Value, m.Groups[1].Value.Replace('_', ' '), m.Groups[3].Value.Replace('_', ' '), m.Groups[4].Value.Replace('_', ' '));
 			return instance;
 		}
-		
-		public static Train DuplicateAndInterval(double interval, Train train_)
-        {
-			Train train = new Train(train_); 
-			
-				// this is reference i need clone :<
-	
 
-					//swap relations, posts
-					string tmp = train.RelationFrom;
-					train.RelationFrom = train.RelationTo;
-					train.RelationTo = tmp;
-					tmp = train.FromPost;
-					train.FromPost = train.ToPost;
-					train.ToPost = tmp;
-					// swaping timespans bad
+		public static Train DuplicateAndInterval(double interval, Train train_)
+		{
+			Train train = new Train(train_);
+
+			// this is reference i need clone :<
+
+
+			//swap relations, posts
+			string tmp = train.RelationFrom;
+			train.RelationFrom = train.RelationTo;
+			train.RelationTo = tmp;
+			tmp = train.FromPost;
+			train.FromPost = train.ToPost;
+			train.ToPost = tmp;
+			// swaping timespans bad
 			if (train.ThisDeparture.HasValue && train.ThisArrival.HasValue && train.NextArrival.HasValue && train.PreviousDeparture.HasValue)
-            {
+			{
 				TimeSpan stationStop = train.ThisDeparture.Value.Subtract(train.ThisArrival.Value);
 				TimeSpan incomingTime = train.ThisArrival.Value.Subtract(train.PreviousDeparture.Value);
 				TimeSpan outcomingTime = train.NextArrival.Value.Subtract(train.ThisDeparture.Value);
 
 			}
-			
-					if (train.NextInCycle.HasValue)
-                    {
-						train.TrainNumber = train.NextInCycle.Value;
-					}
-					else
-                    {
-						//swaping first and second digit of number if it contains more than 2 digits
-						if (train.TrainNumber >= 100)
-						{
-							int[] numberArray = train.TrainNumber.ToString().Select(o => int.Parse(o.ToString())).ToArray();
-							int uiTmp = numberArray[0];
-							numberArray[0] = numberArray[1];
-							numberArray[1] = uiTmp;
-							train.TrainNumber = Convert.ToUInt32(string.Join("", numberArray));
-						}
-						train.TrainNumber += 1;
-                    }
-					if (train.FromPost == "wi")
-						train.ExitTracks = "2,1";
-					else
-						train.ExitTracks = "1,2";
+
+			if (train.NextInCycle.HasValue)
+			{
+				train.TrainNumber = train.NextInCycle.Value;
+			}
+			else
+			{
+				//swaping first and second digit of number if it contains more than 2 digits
+				if (train.TrainNumber >= 100)
+				{
+					int[] numberArray = train.TrainNumber.ToString().Select(o => int.Parse(o.ToString())).ToArray();
+					int uiTmp = numberArray[0];
+					numberArray[0] = numberArray[1];
+					numberArray[1] = uiTmp;
+					train.TrainNumber = Convert.ToUInt32(string.Join("", numberArray));
+				}
+				train.TrainNumber += 1;
+			}
+			if (train.FromPost == "wi")
+				train.ExitTracks = "2,1";
+			else
+				train.ExitTracks = "1,2";
 			train.TimeInterval(interval);
 			return train;
-        }
+		}
 	}
 }

@@ -25,8 +25,8 @@ namespace RJ_Editor
 	{
 		private string stationName, author, fileDescription;
 		private DateTime startDate;
-		
-		
+
+
 		public Timetable timeTabInst;
 		public Timetable(string startDate, string stationName, string author, string fileDescription)
 		{
@@ -36,14 +36,14 @@ namespace RJ_Editor
 			FileDescription = fileDescription;
 		}
 
-        public Timetable()
-        {
-        }
+		public Timetable()
+		{
+		}
 
-        public string StationName
+		public string StationName
 		{
 			get { return stationName; }
-			set 
+			set
 			{
 				if (value.ToUpper() == "TW" || value.ToUpper() == "LS" || value.ToUpper() == "LM")
 				{
@@ -61,7 +61,7 @@ namespace RJ_Editor
 			{
 				if (startDate.Month == 1 && startDate.Day == 1)
 					return startDate.ToString("yyyy", CultureInfo.CreateSpecificCulture("de-DE"));
-				return startDate.ToString("d", CultureInfo.CreateSpecificCulture("de-DE")); 
+				return startDate.ToString("d", CultureInfo.CreateSpecificCulture("de-DE"));
 			}
 			set
 			{
