@@ -8,26 +8,17 @@ using System.Threading.Tasks;
 
 namespace RJ_Editor
 {
-    class WriterToFile
-    {
-		public static void write(string filePath)
+	class WriterToFile
+	{
+		public static void Write(string filePath)
 		{
-			FileStream fs_save;
-			StreamWriter sw;
-
-
-			fs_save = new FileStream(filePath, FileMode.Create, FileAccess.Write);
-
-			sw = new StreamWriter(fs_save, Encoding.Default);
-
+			FileStream fs_save = new FileStream(filePath, FileMode.Create, FileAccess.Write);
+			StreamWriter sw = new StreamWriter(fs_save, Encoding.Default);
 			sw.BaseStream.Seek(0, SeekOrigin.End);
 			//sw.Write("ZAŻÓŁĆ GĘŚLĄ JAŹŃ");
 			writeTimetable();
 			writeTrains();
-
 			sw.Close();
-
-
 
 			void writeTimetable()
 			{

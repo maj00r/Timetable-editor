@@ -32,6 +32,7 @@ namespace RJ_Editor
 
 
 		}
+		
 
 		private void colorPicker_Click(object sender, EventArgs e)
 		{
@@ -61,7 +62,7 @@ namespace RJ_Editor
 					{
 						this.Text = "Edytor Rozkładu Jazdy dla ISDR :: Pracuję";
 						filePath = openFileDialog.FileName;
-						Logic_Parser.parse(openFileDialog.FileName);
+						ParserFromFile.Parse(openFileDialog.FileName);
 					}
 					this.Text = "Edytor Rozkładu Jazdy dla ISDR";
 					timetableView.DataSource = null;
@@ -76,6 +77,10 @@ namespace RJ_Editor
 			catch (ArgumentException ex)
 			{
 				MessageBox.Show(ex.Message, "Syntax error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+			}
+			catch(IOException ex)
+            {
+				MessageBox.Show(ex.Message, "Open file error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			}
 
 		}
@@ -111,7 +116,14 @@ namespace RJ_Editor
 			saveFileDialog.ShowDialog();
 			if (saveFileDialog.FileName != "")
 			{
-				WriterToFile.write(saveFileDialog.FileName);
+				try
+                {
+					WriterToFile.Write(saveFileDialog.FileName);
+				}
+				catch(IOException ex)
+                {
+					MessageBox.Show(ex.Message, "Write to file error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				}
 			}
 
 		}
@@ -123,7 +135,7 @@ namespace RJ_Editor
 		private void zapiszToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			if (filePath != "")
-				WriterToFile.write(filePath);
+				WriterToFile.Write(filePath);
 			else
 				zapiszJakoToolStripMenuItem_Click(sender, e);
 		}

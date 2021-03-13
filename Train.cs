@@ -27,66 +27,7 @@ namespace RJ_Editor
 		private short exitProbability;
 		private uint trainNumber, colorExtract;
 		private uint? previousInCycle, nextInCycle;
-		//TrainSet trainSet;
-
-		/*
-
-	= int,int...	Numery torów wyjazdowych na szlaku ze stacji początkowej oddzielone przecinkiem; pierwsza liczba preferowana przez AI, więc powinna wskazywać na tor prawy
-	= bool		Z posterunku do danego kilometra (nie używane)
-	= string	Dni wyprawiania: oddzielone przecinkiem ("1,3,6"), jako zakres ("1-5")
-	= hh:mm:ss	Czas wyprawienia z posterunku przez AI (:ss ignorowane przez symulator)
-	= uint		Prędkość wyjazdowa (km/h), tylko dla przyjeżdżających
-	= int		Prawdopodobieństwo przyjazdu (-1;100), -1 - zaznaczenie pola "odwołanie pociągu w zamknięciu"
-	= uint 		Prawdopodobieństwo przyjazdu przed czasem (0;100)
-	= uint		Prawdopodobieństwo opóźnienia (0;100)
-	= uint		Maksymalny wartość przyjazdu przed czasem (minuty)
-	= uint		Maksymalny wartość opoźnienia (minuty)
-	= uint		Numer pociągu (preferowane max. 9 cyfr)
-	= uint		Priorytet pociągu (0;6), 6 - najwyższy
-	= uint		Numer poprzedniego pociągu w obiegu (opisywany pociąg nie zostanie wyprawiony dopóki nie dotrze ten z numerem podanym jako parametr)
-	= uint		Czas zwłoki w obiegu (opisywany pociąg będzie wyprawiony minimum tyle minut po dotarciu pociągu z numerem w poprzednim parametrze)
-	= 0		Dummy zero
-	= string	Zestawienie wyprawianego pociągu składa się z wpisów pojazdów oddzielonych przecinkiem
-		= nazwa[m=int][p=int][vm=int][1k][-1k],dlugosc,silnik	Wyświetlana nazwa, masa (Mg), moc (kW), prędkość maksymalna (km/h); długość (oś obliczeniowa == 5m); lokomotywa jednokabinowa; lokomotywa jednokabinowa z drugiej strony (zamiennie); 0 - wagon, 1 - elektryczny, 2 - nieelektryczny (dane w nawiasach kwadratowych opcjonalne)
-	
-	== int,int...	Miejsca zatrzymania pociągu 1 - przystanki osobowe, 2 - perony własnego posterunku (nie dotyczy Liskowa)
-	= string,string...	Nazwy semaforów, przed którymi pociąg oczekuje na godzinę odjazdu, pomimo zezwolenia na dalszą jazdę pociągową
-	= hh:mm:ss	Przyjazd na stację, może się różnić od czasu wyprawienia
-	= "none"	Dummy none
-	= "none"	Dummy none
-	= string	Opis przy zapowiadaniu telefonicznym
-	= "none"	Dummy none
-	= string	Nazwa pociągu
-	= string	Skrót posterunku wyprawiającego pociąg (dostępne wartości "sl", "tw", "ls", "bk", "wi", "tm", "lm")
-	= string	Skrót posterunku przyjmującego pociąg (dostępne wartości "sl", "tw", "ls", "bk", "wi", "tm", "lm")
-	= int		Wartość bezwzględna to nowy numer pociągu, jeśli jest ujemna: zmiana następuje automatycznie
-	= string	Nazwa sygnału na semaforze wjazdowym posterunku przyjmującego (typowe wartości: "s2", "s5", "s10a", niewskazane: "s1", "s1a")
-	= uint		Kolor wpisu w wyciągu rozkładu jako decimal
-	= stringstring	Rodzaj pociągu wyświetlany w SWDR z wielkich liter oraz skrót przewoźnika z małych
-		= Rodzaj: obecnie 3 znaki, ostatnia oznacza trakcję: "E", "J" - elektryczna; "S", "M" - spalinowa; "P" - parowa	
-		= Przewoźnik: 1 do 3 znaków zgodnie z dokumentacją symulatora
-	
-	= hh:mm:ss	Godzina odjazdu z sąsiedniego posterunku, może się różnić od czasu wyprawienia (:ss ignorowane przez symulator)
-	= hh:mm:ss	Godzina odjazdu ze stacji (:ss ignorowane przez symulator)
-	= string	Numer toru stacyjnego (może zawierać literę na końcu)
-	= hh:mm:ss	Godzina przyjazdu do sąsiedniego posterunku (:ss ignorowane przez symulator)
-	= string	Stacja początkowa
-	= string	Stacja końcowa
-	= string	Dni kursowania widoczne w wyciągu: oddzielone przecinkiem ("1,3,6"), jako zakres ("1-5") z opcjonalnym znakiem "d" na końcu lub oznaczenie wielką literą ("E")	
-	= string	Dodatkowe informacje o pociągu w SWDR
-	= bool		Wyświetlanie pociągu w wyciągu rozkładu jazdy
-	= bool		Wyświetlanie pociągu w SWDR (zalecane "1")
-	= string	Ładunek w SWDR
-	= string	Uwagi eksploatacyjne w SWDR
-	= string	Typ pociągu w SWDR ("Stałego kursowania", "Pociąg katalogowy", "Pociąg dodatkowy")
-	= string	Typ rozkładu w SWDR ("Roczny", "Katalogowy", "Dodatkowy", "Indywidualny")
-	= uint		Prawdopodobieństwo jazdy z przekroczoną skrajnią
-	= uint		Prawdopodobieństwo jazdy z TWR
-	= bool		Wyróżnienie pociągu objętego rozliczeniem z tytułu jakości w SWDR
-	= ufloat	Czas postoju zamówionego w minutach, kropka separatorem dziesiętnym
-	= string	Typ postoju zamówionego ("ph", "pn", "pm", "zd", "zp", "pt")
- 
-		 */
+		
 		#region Contructors and properties
 
 		public Train()

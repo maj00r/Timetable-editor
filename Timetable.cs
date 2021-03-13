@@ -10,17 +10,7 @@ using System.Windows.Forms;
 
 namespace RJ_Editor
 {
-	/*
-	 = Kodowanie pliku win-1250
-= Dane oddzielone spacją, jeden wpis pociąg w jednej linii, "none" jeśli parametr jest zbędny, 0 i 1 jako bool, dummy jest nieużywane
-= Pierwsza linia
-	= "info"
-	= string	Skrót stacji(dostępne "Tw", "Ls", "Lm")
-	= dd.mm.yyyy albo yyyy	Data początku symulacji, wskazuje na poniedziałek jesli pelna data
-	= string	Autor
-	= string	Opis
-
-	 */
+	
 	class Timetable
 	{
 		private string stationName, author, fileDescription;

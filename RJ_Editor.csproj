@@ -78,6 +78,7 @@
       <DependentUpon>GraphForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Logic_Parser.cs" />
+    <Compile Include="ParserFromFile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Timetable.cs" />
